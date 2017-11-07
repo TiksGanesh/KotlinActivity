@@ -1,6 +1,7 @@
 package com.example.ganeshtikone.kotlinactivity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.AppCompatButton
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private val LOG_TAG = MainActivity::class.simpleName
     private lateinit var buttonNavigation: AppCompatButton
     private lateinit var editTextInput: AppCompatEditText
+    private lateinit var buttonCallCustomerCare: AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,20 @@ class MainActivity : AppCompatActivity() {
             // Pass data to method
             gotoChildActivityWithData(data)
         })
+
+        buttonCallCustomerCare.setOnClickListener(View.OnClickListener {
+            callCustomerCare()
+        })
+    }
+
+    /**
+     * Use of Implicit Intent
+     * Implicit Intent use when open existing system application
+     */
+    private fun callCustomerCare() {
+        val callImplicitIntent = Intent(Intent.ACTION_DIAL)
+        callImplicitIntent.data = (Uri.parse("tel:0123456789"))
+        startActivity(callImplicitIntent)
     }
 
     /**
@@ -48,6 +64,7 @@ class MainActivity : AppCompatActivity() {
     private fun initUI() {
         buttonNavigation = findViewById(R.id.buttonNavigation)
         editTextInput = findViewById(R.id.editTextInput)
+        buttonCallCustomerCare = findViewById(R.id.buttonCallCustomerCare)
     }
 
     /**
@@ -97,7 +114,7 @@ class MainActivity : AppCompatActivity() {
         super.onRestart()
     }
 
-    private fun clearEditText(){
+    private fun clearEditText() {
         editTextInput.setText("")
     }
 }

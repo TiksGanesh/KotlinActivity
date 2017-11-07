@@ -3,4 +3,5 @@
     <string name="navigate_to_childactivity">Navigate to ChildActivity</string>
     <string name="back_to_parent">Back to Parent</string>
     <string name="enter_some_value">Enter some value</string>
+    <string name="call_customer_care">Call Customer Care</string>
 </resources>
