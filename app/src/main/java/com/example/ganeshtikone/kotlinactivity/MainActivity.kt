@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.AppCompatButton
+import android.support.v7.widget.AppCompatEditText
 import android.util.Log
 import android.view.View
 
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     private val LOG_TAG = MainActivity::class.simpleName
     private lateinit var buttonNavigation: AppCompatButton
+    private lateinit var editTextInput: AppCompatEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,15 @@ class MainActivity : AppCompatActivity() {
      * using lambda expression
      */
     private fun setClickListenerOnButton() {
-        buttonNavigation.setOnClickListener(View.OnClickListener { gotoChildActivity() })
+        buttonNavigation.setOnClickListener(View.OnClickListener {
+
+
+            // Get text from EditText
+            val data = editTextInput.text.toString()
+
+            // Pass data to method
+            gotoChildActivityWithData(data)
+        })
     }
 
     /**
@@ -37,17 +47,20 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initUI() {
         buttonNavigation = findViewById(R.id.buttonNavigation)
+        editTextInput = findViewById(R.id.editTextInput)
     }
 
     /**
      * Using of Intent Concept
      * Explicit Intent
      * We specify class to which navigation should occure
+     * Pass Data
      *
      */
-    private fun gotoChildActivity() {
+    private fun gotoChildActivityWithData(data: String) {
 
         val navigationIntent = Intent(this, ChildActivity::class.java)
+        navigationIntent.putExtra("key_data", data)
         startActivity(navigationIntent)
     }
 
@@ -70,6 +83,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         Log.d(LOG_TAG, "onStop method executed")
+        clearEditText()
         super.onStop()
     }
 
@@ -81,5 +95,9 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         Log.d(LOG_TAG, "onRestart method executed")
         super.onRestart()
+    }
+
+    private fun clearEditText(){
+        editTextInput.setText("")
     }
 }

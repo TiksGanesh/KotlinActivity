@@ -3,6 +3,7 @@ package com.example.ganeshtikone.kotlinactivity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.AppCompatButton
+import android.support.v7.widget.AppCompatTextView
 import android.util.Log
 import android.view.View
 
@@ -11,6 +12,7 @@ class ChildActivity : AppCompatActivity(), View.OnClickListener {
 
     private val LOG_TAG = ChildActivity::class.simpleName
     private lateinit var buttonBack: AppCompatButton
+    private lateinit var resultTextView: AppCompatTextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +21,12 @@ class ChildActivity : AppCompatActivity(), View.OnClickListener {
         handleBackEvent()
         initUI()
         setClickListenerOnButton()
+        getDataFromParent()
+    }
+
+    private fun getDataFromParent() {
+        val data = intent.getStringExtra("key_data")
+        resultTextView.setText(data)
     }
 
     private fun setClickListenerOnButton() {
@@ -26,7 +34,8 @@ class ChildActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initUI() {
-        buttonBack = findViewById(R.id.buttonBack);
+        buttonBack = findViewById(R.id.buttonBack)
+        resultTextView = findViewById(R.id.textViewResult)
     }
 
     /**
